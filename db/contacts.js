@@ -20,14 +20,13 @@ async function getContactById(contactId) {
 
 async function removeContact(contactId) {
   const data = await listContacts();
-  const index = data.findIndex((contact) => contact.id === contactId);
-  const removedContact = data[index];
-
+  const index = data.findIndex((item) => item.id === contactId);
   if (index === -1) {
-    data.splice(index, 1);
-    await fs.writeFile(contactsPath, JSON.stringify(data));
+    null;
   }
-  return removedContact ? removedContact : null;
+  const [removeContact] = data.splice(index, 1);
+  await fs.writeFile(contactsPath, JSON.stringify(data));
+  return removeContact;
 }
 // removeContact("2");
 
